@@ -1,0 +1,53 @@
+CREATE DATABASE stolarnia;
+
+USE stolarnia;
+
+CREATE TABLE Mebel (
+    id_mebel INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nazwa TEXT NOT NULL
+);
+
+CREATE TABLE Rodzaj_materialu (
+    id_rodzaj_materialu INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nazwa TEXT NOT NULL,
+    grubosc FLOAT NOT NULL CHECK (grubosc > 0),
+    kolor TEXT,
+    cena_m2 FLOAT
+);
+
+CREATE TABLE Plyta (
+    id_plyta INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    wysokosc FLOAT NOT NULL CHECK (wysokosc > 0),
+    szerokosc FLOAT NOT NULL CHECK (szerokosc > 0),
+    id_rodzaj_materialu INTEGER,
+    FOREIGN KEY (id_rodzaj_materialu)
+    REFERENCES Rodzaj_materialu (id_rodzaj_materialu)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE Sciana (
+    id_sciana INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nazwa TEXT NOT NULL,
+    wysokosc FLOAT NOT NULL CHECK (wysokosc > 0),
+    szerokosc FLOAT NOT NULL CHECK (szerokosc > 0),
+    id_mebel INTEGER,
+    id_rodzaj_materialu INTEGER,
+    FOREIGN KEY (id_mebel)
+    REFERENCES Mebel (id_mebel)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (id_rodzaj_materialu)
+    REFERENCES Rodzaj_materialu (id_rodzaj_materialu)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+	
+
+
+
+
+
+
+
+	
